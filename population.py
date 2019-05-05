@@ -14,6 +14,9 @@ class Population():
         # Init
         for _ in range(1,N+1):
             self.pop.append( Creature((len(self.pop)+1), self.specie) )
+        # Init log
+        self.popStat.prepareLog()
+        self.popStat.logSize(N)
 
     def progress(self):
         # Prepare Log 
