@@ -24,9 +24,9 @@ class Population():
         # Creatures progression
         for creature in self.pop:
             ret = creature.progress()
-            if ret == "Reproduction":
+            if random.random() <= creature.specie.R:
                 self.reproduction(creature)
-            elif ret == "Death":
+            if random.random() <= creature.specie.D + creature.specie.C * len(self.pop):
                 self.kill(creature)
         # Application
         for app in self._toAppend:
