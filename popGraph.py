@@ -14,8 +14,15 @@ class popGraphPage(tk.Frame):
 
         f = Figure(figsize=(5,5), dpi=100)
         a = f.add_subplot(111)
-        a.axhline(y=pop.specie.equilibrium(), color='r', linestyle='-')
-        a.plot(range(0,len(pop.popStat.progression)),[int(x[1]) for x in pop.popStat.progression])
+
+        a.plot(range(0,len(pop.popStat.progression)),[int(x[1]) for x in pop.popStat.progression], color='b')
+        if pop.specie.equilibrium() <= 0:
+            pred = [pop.popStat.progression[0][1]] # N at time 0
+            for _ in range(0,len(pop.popStat.progression)-1):
+                pred.append(pred[len(pred)-1]+pop.specie.expectedChange(pred[len(pred)-1]))
+            a.plot(range(0,len(pop.popStat.progression)), pred, color='r', linestyle='-')
+        else:
+            a.axhline(y=pop.specie.equilibrium(), color='r', linestyle='-')
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.draw()

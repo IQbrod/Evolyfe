@@ -20,10 +20,10 @@ class App(tk.Tk):
         frame.tkraise()
 
 if __name__ == "__main__":
-    sp = Specie("Blob",0.2,0.03,0.05)
-    pop = Population(sp,10)
+    sp = Specie("Blob",0,0.05,0.052)
+    pop = Population(sp,100)
 
-    for _ in range(100):
+    for _ in range(1000):
         pop.progress()
 
     app = App()
