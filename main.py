@@ -8,3 +8,5 @@ if __name__ == "__main__":
 
     for _ in range(100):
         pop.progress()
+    print(round(pop.specie.equilibrium(),1))
+    print(pop.popStat.progression)
