@@ -14,18 +14,18 @@ class App(tk.Tk):
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
-    def displayPop(self, pop: Population):
-        frame = popGraphPage(self.container, pop)
+    def displayPop(self, pop: Population, emulated: int = 0):
+        frame = popGraphPage(self.container, pop, emulated)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()
 
 if __name__ == "__main__":
-    sp = Specie("Blob",0,0.05,0.052)
+    sp = Specie("Blob",0,0.055,0.05)
     pop = Population(sp,100)
 
-    for _ in range(1000):
+    for _ in range(500):
         pop.progress()
 
     app = App()
-    app.displayPop(pop)
+    app.displayPop(pop,10)
     app.mainloop()
