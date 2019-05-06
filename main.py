@@ -3,6 +3,7 @@ from popGraph import popGraphPage
 from population import Population
 from specie import Specie
 from creature import Creature
+from environment import Environment
 
 class App(tk.Tk):
     def __init__(self):
@@ -21,11 +22,13 @@ class App(tk.Tk):
 
 if __name__ == "__main__":
     sp = Specie("Blob",0,0.05,0.02,0.0004)
-    pop = Population(sp,10)
-    print(sp.carryingCapacity())
+    pops = [[sp,10]]
+
+    e = Environment(pops)
+
     for _ in range(300):
-        pop.progress()
+        e.progress()
 
     app = App()
-    app.displayPop(pop,10)
+    app.displayPop(e.pops[0],10)
     app.mainloop()
