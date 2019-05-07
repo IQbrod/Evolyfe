@@ -1,7 +1,8 @@
 from population import Population
 
 class Environment():
-    def __init__(self, arr: []):
+    def __init__(self, name: str, arr: []):
+        self.name = name
         self.pops = []
         for element in arr:
             self.pops.append(Population(element[0],element[1]))
