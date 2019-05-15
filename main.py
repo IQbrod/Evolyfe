@@ -1,4 +1,7 @@
 import tkinter as tk
+import sys
+sys.path.insert(0,"src/life")
+sys.path.insert(0,"src/graph")
 from popGraph import PopGraphPage
 from population import Population
 from specie import Specie

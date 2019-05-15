@@ -14,11 +14,11 @@ class Specie():
         if self.R >= self.D:
             return -1
         else:
-            return self.B / (self.D - self.R)
+            return round(self.B / (self.D - self.R))
 
     def carrying_capacity(self):
     # Define maximum number of creatures when the population is on continuous growth
-        if self.R >= self.D:
-            return (self.R - self.D) / self.C
+        if self.C != 0 and self.R >= self.D:
+            return round((self.R - self.D) / self.C)
         else:
             return -1
