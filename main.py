@@ -1,8 +1,10 @@
 import tkinter as tk
-from popGraph import popGraphPage
+from popGraph import PopGraphPage
 from population import Population
 from specie import Specie
 from creature import Creature
+from environment import Environment
+from popListHistogram import PopListHistogram
 
 class App(tk.Tk):
     def __init__(self):
@@ -15,17 +17,23 @@ class App(tk.Tk):
         self.container.grid_columnconfigure(0, weight=1)
 
     def displayPop(self, pop: Population, emulated: int = 0):
-        frame = popGraphPage(self.container, pop, emulated)
+        frame = PopGraphPage(self.container, pop, emulated)
+        frame.grid(row=0, column=0, sticky="nsew")
+        frame.tkraise()
+    
+    def displayEnvironmentPopulations(self, env: Environment):
+        frame = PopListHistogram(self.container, env)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()
 
 if __name__ == "__main__":
-    sp = Specie("Blob",0,0.055,0.05)
-    pop = Population(sp,100)
+    pops = [[Specie("Blob-Stable",0,0.02,0.02),40],[Specie("Blob-Increase",0,0.023,0.02),50],[Specie("Blob-Decrease",0,0.02,0.025),50]]
 
-    for _ in range(500):
-        pop.progress()
+    e = Environment("BlobLand",pops)
+
+    for _ in range(300):
+        e.progress()
 
     app = App()
-    app.displayPop(pop,10)
+    app.displayPop(e.pops[0])
     app.mainloop()

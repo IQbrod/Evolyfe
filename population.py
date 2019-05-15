@@ -24,9 +24,9 @@ class Population():
         # Creatures progression
         for creature in self.pop:
             ret = creature.progress()
-            if ret == "Reproduction":
+            if random.random() <= creature.specie.R:
                 self.reproduction(creature)
-            elif ret == "Death":
+            if random.random() <= creature.specie.D + creature.specie.C * len(self.pop):
                 self.kill(creature)
         # Application
         for app in self._toAppend:
@@ -51,6 +51,9 @@ class Population():
     def kill(self, victim: Creature):
         self._toKill.append(victim)
         self.popStat.logAction("D")
+
+    def getName(self):
+        return self.specie.name
 
 class _StatPopulation():
     def __init__(self):
