@@ -52,6 +52,9 @@ class Population():
         self._toKill.append(victim)
         self.popStat.logAction("D")
 
+    def getName(self):
+        return self.specie.name
+
 class _StatPopulation():
     def __init__(self):
         self.progression = []

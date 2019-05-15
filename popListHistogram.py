@@ -22,6 +22,8 @@ class PopListHistogram(tk.Frame):
         a = f.add_subplot(111)
 
         self._drawPopulations(a, env.pops)
+        a.set_xlabel("Time")
+        a.set_ylabel("Population")
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.draw()
@@ -33,7 +35,7 @@ class PopListHistogram(tk.Frame):
 
     def _drawPopulations(self, subplot, pops: []):
         cmap = get_cmap(len(pops)+1)
-        subplot.bar(
+        p = subplot.bar(
             range(0,len(pops[0].popStat.progression)), #Timeline
             [int(x[1]) for x in pops[0].popStat.progression], #Pop
             1, #SizeBar
@@ -46,10 +48,12 @@ class PopListHistogram(tk.Frame):
                 for j in range(0,i-1):
                     prev = [y+int(x[1]) for y,x in zip(prev,pops[j].popStat.progression)]
 
-                subplot.bar(
+                p = subplot.bar(
                     range(0,len(pops[i].popStat.progression)),
                     [int(x[1]) for x in pops[i].popStat.progression],
                     1,
                     bottom=prev,
                     color = cmap(i)
-                )  
+                ) 
+        
+        subplot.legend([x.getName() for x in pops])

@@ -27,10 +27,7 @@ class App(tk.Tk):
         frame.tkraise()
 
 if __name__ == "__main__":
-
-    sp = Specie("Blob",0,0.02,0.02)
-    print(sp.equilibrium())
-    pops = [[Specie("Blob-Stable",0,0.02,0.02),20],[Specie("Blob-Increase",0,0.023,0.02),50],[Specie("Blob-Decrease",0,0.02,0.025),50]]
+    pops = [[Specie("Blob-Stable",0,0.02,0.02),40],[Specie("Blob-Increase",0,0.023,0.02),50],[Specie("Blob-Decrease",0,0.02,0.025),50]]
 
     e = Environment("BlobLand",pops)
 
@@ -38,5 +35,5 @@ if __name__ == "__main__":
         e.progress()
 
     app = App()
-    app.displayEnvironmentPopulations(e)
+    app.displayPop(e.pops[0])
     app.mainloop()
