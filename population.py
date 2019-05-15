@@ -8,62 +8,62 @@ class Population():
         self.specie = specie
         self.pop = []
         # Core objects
-        self.popStat = _StatPopulation()
-        self._toAppend = []
-        self._toKill = []
+        self.pop_stat = _StatPopulation()
+        self._to_append = []
+        self._to_kill = []
         # Init
         for _ in range(1,N+1):
             self.pop.append( Creature((len(self.pop)+1), self.specie) )
         # Init log
-        self.popStat.prepareLog()
-        self.popStat.logSize(N)
+        self.pop_stat.prepare_log()
+        self.pop_stat.log_size(N)
 
     def progress(self):
         # Prepare Log 
-        self.popStat.prepareLog()
+        self.pop_stat.prepare_log()
         # Creatures progression
         for creature in self.pop:
-            ret = creature.progress()
+            creature.progress()
             if random.random() <= creature.specie.R:
                 self.reproduction(creature)
             if random.random() <= creature.specie.D + creature.specie.C * len(self.pop):
                 self.kill(creature)
         # Application
-        for app in self._toAppend:
+        for app in self._to_append:
             self.pop.append(app)
-        for kil in self._toKill:
+        for kil in self._to_kill:
             self.pop.remove(kil)
-        self._toAppend = []
-        self._toKill = []
+        self._to_append = []
+        self._to_kill = []
         # Spontaneous Birth
         rand = random.random()
         if (rand <= self.specie.B):
             self.pop.append( Creature((len(self.pop)+1), self.specie) )
-            self.popStat.logAction("B")
+            self.pop_stat.log_action("B")
         # Log size
-        self.popStat.logSize(len(self.pop))
+        self.pop_stat.log_size(len(self.pop))
     
     def reproduction(self, father: Creature):
-        son = Creature( (len(self.pop)+len(self._toAppend)+1), father.specie )
-        self._toAppend.append(son)
-        self.popStat.logAction("R")
+        son = Creature( (len(self.pop)+len(self._to_append)+1), father.specie )
+        self._to_append.append(son)
+        self.pop_stat.log_action("R")
 
     def kill(self, victim: Creature):
-        self._toKill.append(victim)
-        self.popStat.logAction("D")
+        self._to_kill.append(victim)
+        self.pop_stat.log_action("D")
 
-    def getName(self):
+    def get_name(self):
         return self.specie.name
 
 class _StatPopulation():
     def __init__(self):
         self.progression = []
 
-    def prepareLog(self):
+    def prepare_log(self):
         self.progression.append(["",0])
 
-    def logAction(self, action: str):
+    def log_action(self, action: str):
         self.progression[len(self.progression)-1][0] += action
 
-    def logSize(self, popSize: int):
-        self.progression[len(self.progression)-1][1] = popSize
+    def log_size(self, pop_size: int):
+        self.progression[len(self.progression)-1][1] = pop_size

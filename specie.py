@@ -16,7 +16,7 @@ class Specie():
         else:
             return self.B / (self.D - self.R)
 
-    def carryingCapacity(self):
+    def carrying_capacity(self):
     # Define maximum number of creatures when the population is on continuous growth
         if self.R >= self.D:
             return (self.R - self.D) / self.C

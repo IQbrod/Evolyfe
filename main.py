@@ -16,12 +16,12 @@ class App(tk.Tk):
         self.container.grid_rowconfigure(0, weight=1)
         self.container.grid_columnconfigure(0, weight=1)
 
-    def displayPop(self, pop: Population, emulated: int = 0):
+    def display_pop(self, pop: Population, emulated: int = 0):
         frame = PopGraphPage(self.container, pop, emulated)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()
     
-    def displayEnvironmentPopulations(self, env: Environment):
+    def display_environment_populations(self, env: Environment):
         frame = PopListHistogram(self.container, env)
         frame.grid(row=0, column=0, sticky="nsew")
         frame.tkraise()
@@ -35,5 +35,5 @@ if __name__ == "__main__":
         e.progress()
 
     app = App()
-    app.displayPop(e.pops[0])
+    app.display_environment_populations(e)
     app.mainloop()

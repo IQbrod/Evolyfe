@@ -10,5 +10,5 @@ class Creature():
     def progress(self) -> str:
         self.age += 1
 
-    def getName(self) -> str:
+    def get_name(self) -> str:
         return self.specie.name + "_" + str(self.id)

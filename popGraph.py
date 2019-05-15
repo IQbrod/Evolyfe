@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg, NavigationTool
 from population import Population
 
 class PopGraphPage(tk.Frame):
-    def __init__(self, parent: tk.Frame, pop: Population, emulatedPop: int = 0) :
+    def __init__(self, parent: tk.Frame, pop: Population, emulated_pop: int = 0) :
         tk.Frame.__init__(self, parent)
         self.legend=[]
 
@@ -17,8 +17,8 @@ class PopGraphPage(tk.Frame):
         f = Figure(figsize=(5,5), dpi=100)
         a = f.add_subplot(111)
 
-        self._drawPopulation(a, pop)
-        self._emulate(a, pop, emulatedPop)
+        self._draw_population(a, pop)
+        self._emulate(a, pop, emulated_pop)
         self._predict(a, pop)
 
         a.set_xlabel("Time")
@@ -34,16 +34,16 @@ class PopGraphPage(tk.Frame):
         toolbar.update()
         canvas._tkcanvas.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
     
-    def _drawPopulation(self, subplot, pop: Population, customColor='black'):
-        subplot.plot(range(0,len(pop.popStat.progression)),[int(x[1]) for x in pop.popStat.progression], color=customColor)
-        self.legend.append(pop.getName())
+    def _draw_population(self, subplot, pop: Population, custom_color='black'):
+        subplot.plot(range(0,len(pop.pop_stat.progression)),[int(x[1]) for x in pop.pop_stat.progression], color=custom_color)
+        self.legend.append(pop.get_name())
 
     def _predict(self, subplot, pop: Population):
         if pop.specie.equilibrium() <= 0:
-            pred = [pop.popStat.progression[0][1]] # N at time 0
-            for _ in range(0,len(pop.popStat.progression)-1):
+            pred = [pop.pop_stat.progression[0][1]] # N at time 0
+            for _ in range(0,len(pop.pop_stat.progression)-1):
                 pred.append(pred[len(pred)-1]+pop.specie.expectedChange(pred[len(pred)-1]))
-            subplot.plot(range(0,len(pop.popStat.progression)), pred, color='r', linestyle='-')
+            subplot.plot(range(0,len(pop.pop_stat.progression)), pred, color='r', linestyle='-')
         else:
             subplot.axhline(y=pop.specie.equilibrium(), color='r', linestyle='-')
         self.legend.append("Expected")
@@ -51,23 +51,23 @@ class PopGraphPage(tk.Frame):
     def _emulate(self, subplot, pop: Population, N: int):
         if N != 0:
             # Emulate N populations like pop
-            popList = []
+            pop_list = []
             for _ in range(N):
-                popList.append(Population(pop.specie, pop.popStat.progression[0][1]))
-                for _ in range(1,len(pop.popStat.progression)):
-                    popList[len(popList)-1].progress()
+                pop_list.append(Population(pop.specie, pop.pop_stat.progression[0][1]))
+                for _ in range(1,len(pop.pop_stat.progression)):
+                    pop_list[len(pop_list)-1].progress()
             # Calculate average of N populations
             avg = []
-            for i in range(0,len(pop.popStat.progression)):
+            for i in range(0,len(pop.pop_stat.progression)):
                 avg.append(0)
-                for p in popList:
-                    avg[i] += p.popStat.progression[i][1]
+                for p in pop_list:
+                    avg[i] += p.pop_stat.progression[i][1]
                 avg[i] = round(avg[i] / N, 2)
 
             # Draw population
-            #for p in popList:
+            #for p in pop_list:
             #    self._drawPopulation(subplot, p, 'b')
 
             # Draw average population
-            subplot.plot(range(0,len(pop.popStat.progression)),avg, color='g')
+            subplot.plot(range(0,len(pop.pop_stat.progression)),avg, color='g')
             self.legend.append("["+str(N)+"] Average")
