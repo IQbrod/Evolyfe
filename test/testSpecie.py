@@ -1,6 +1,4 @@
 import unittest
-import sys
-sys.path.insert(0,"src/life")
 from specie import Specie
 
 class TestSpecie(unittest.TestCase):
@@ -17,6 +15,3 @@ class TestSpecie(unittest.TestCase):
         self.assertEqual(self.continuous.equilibrium(), -1, "Continuous should reach -1")
         self.assertEqual(self.extinction.equilibrium(), 0, "Extinction should reach 0")
         self.assertEqual(self.continuous_carryingcap.equilibrium(), -1, "Stable & NoBirth should reach -1")
-
-if __name__ == '__main__':
-    unittest.main()

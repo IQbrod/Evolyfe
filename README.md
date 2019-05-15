@@ -1,4 +1,5 @@
 # Evolyfe
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IQbrod_Evolyfe&metric=alert_status)](https://sonarcloud.io/dashboard?id=IQbrod_Evolyfe)  
 Life simulation with Python  
   
 # 0. Setup  
